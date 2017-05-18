@@ -6,7 +6,7 @@ Example request:
 ```go
 var bwfClient = bwfclient.New()
 resp, err := bwfClient.Request(
-    BwfRequest{
+    bwfclient.BwfRequest{
 		AanvragerBrutoJaarinkomenBedr: 0,
 		PartnerBrutoJaarinkomenBedr:   0,
 	}
