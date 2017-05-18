@@ -7,8 +7,8 @@ Example request:
 var bwfClient = bwfclient.New()
 resp, err := bwfClient.Request(
     BwfRequest{
-		aanvragerBrutoJaarinkomenBedr: 0,
-		partnerBrutoJaarinkomenBedr:   0,
+		AanvragerBrutoJaarinkomenBedr: 0,
+		PartnerBrutoJaarinkomenBedr:   0,
 	}
 )
 

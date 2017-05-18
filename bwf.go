@@ -13,10 +13,10 @@ const (
 
 // BwfRequest needed for the request
 type BwfRequest struct {
-	aanvragerBrutoJaarinkomenBedr int
-	partnerBrutoJaarinkomenBedr   int
-	koopsomBedr                   int
-	nettoLastMbedr                int
+	AanvragerBrutoJaarinkomenBedr int
+	PartnerBrutoJaarinkomenBedr   int
+	KoopsomBedr                   int
+	NettoLastMbedr                int
 }
 
 // BwfResponse is the response retrieved from Bwf
@@ -93,10 +93,10 @@ func createRequest(request BwfRequest) string {
 	}
 
 	q := req.URL.Query()
-	q.Add("aanvragerBrutoJaarinkomenBedr", strconv.Itoa(request.aanvragerBrutoJaarinkomenBedr))
-	q.Add("partnerBrutoJaarinkomenBedr", strconv.Itoa(request.partnerBrutoJaarinkomenBedr))
-	q.Add("nettoLastMbedr", strconv.Itoa(request.nettoLastMbedr))
-	q.Add("koopsomBedr", strconv.Itoa(request.koopsomBedr))
+	q.Add("aanvragerBrutoJaarinkomenBedr", strconv.Itoa(request.AanvragerBrutoJaarinkomenBedr))
+	q.Add("partnerBrutoJaarinkomenBedr", strconv.Itoa(request.PartnerBrutoJaarinkomenBedr))
+	q.Add("nettoLastMbedr", strconv.Itoa(request.NettoLastMbedr))
+	q.Add("koopsomBedr", strconv.Itoa(request.KoopsomBedr))
 
 	req.URL.RawQuery = q.Encode()
 
