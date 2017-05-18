@@ -11,6 +11,14 @@ const (
 	url = "https://www.rabobank.nl/diensten/hypotheken/homecatcher/taxatie/basisWoningfinanciering"
 )
 
+// BwfRequest needed for the request
+type BwfRequest struct {
+	aanvragerBrutoJaarinkomenBedr int
+	partnerBrutoJaarinkomenBedr   int
+	koopsomBedr                   int
+	nettoLastMbedr                int
+}
+
 // BwfResponse is the response retrieved from Bwf
 type BwfResponse struct {
 	MaxTeLenenObvInkomen struct {
@@ -61,9 +69,8 @@ func New() *BwfClient {
 }
 
 // Request retrieves the bwf results
-func (b BwfClient) Request(aanvragerBrutoJaarinkomenBedr int, partnerBrutoJaarinkomenBedr int) (BwfResponse, error) {
-
-	resp, err := http.Get(createRequest(aanvragerBrutoJaarinkomenBedr, partnerBrutoJaarinkomenBedr))
+func (b BwfClient) Request(request BwfRequest) (BwfResponse, error) {
+	resp, err := http.Get(createRequest(request))
 
 	if err != nil {
 		return BwfResponse{}, err
@@ -79,15 +86,18 @@ func (b BwfClient) Request(aanvragerBrutoJaarinkomenBedr int, partnerBrutoJaarin
 	return data, nil
 }
 
-func createRequest(aanvragerBrutoJaarinkomenBedr int, partnerBrutoJaarinkomenBedr int) string {
+func createRequest(request BwfRequest) string {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Print(err)
 	}
 
 	q := req.URL.Query()
-	q.Add("aanvragerBrutoJaarinkomenBedr", strconv.Itoa(aanvragerBrutoJaarinkomenBedr))
-	q.Add("partnerBrutoJaarinkomenBedr", strconv.Itoa(partnerBrutoJaarinkomenBedr))
+	q.Add("aanvragerBrutoJaarinkomenBedr", strconv.Itoa(request.aanvragerBrutoJaarinkomenBedr))
+	q.Add("partnerBrutoJaarinkomenBedr", strconv.Itoa(request.partnerBrutoJaarinkomenBedr))
+	q.Add("nettoLastMbedr", strconv.Itoa(request.nettoLastMbedr))
+	q.Add("koopsomBedr", strconv.Itoa(request.koopsomBedr))
+
 	req.URL.RawQuery = q.Encode()
 
 	return req.URL.String()
